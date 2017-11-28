@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>To-do List!</title>
+        <!-- CSS Required -->
+        <link rel="stylesheet" href="libs/css/bootstrap.min.css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="libs/css/angular-ui-notification.css" href="style.css">
+        <link rel="stylesheet" href="libs/css/notification.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <div class="container" ng-app="toDoListApp">
+            <div id="todoapp" ng-controller="ToDoMainCtrl">
+
+                <h1 class="text-center top_title"><i class="fa fa-clipboard" aria-hidden="true"></i>To-do List!</h1>
+
+                <div class="row">
+
+                    <div class="col-sm-8 col-sm-offset-2 spacer">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success btn-lg"><i class="fa fa-chevron-right"></i></button>
+                            </span>
+
+                            <form id="todo-form" ng-submit="addNewTask()" >
+                                <input
+                                    class="form-control input-lg"
+                                    id="new-todo"
+                                    placeholder="Hi, what do you want to do?"
+                                    ng-model="newTask"
+                                    autofocus="">
+                            </form>
+
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-lg" ng-click="addNewTask()"><i class="glyphicon glyphicon-plus"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" ng-repeat="task in tasks | filter:statusFilter track by $index" ng-class="{completed: task.completed, editing: task == editedTask}">
+
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <div class="input-group input-group-lg spacer">
+
+                            <span class="input-group-addon">
+                                <input class="toggle" type="checkbox" ng-model="task.completed" ng-click="taskCompleted(task)">
+                            </span>
+
+                            <form ng-submit="finishEditing(task)">
+                                <input class="edit form-control input-lg" ng-trim="false" ng-model="task.title" ng-blur="finishEditing(task)" todo-escape="revertEditing(task)" todo-focus="task == editedTask">
+                            </form>
+
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger btn-lg destroy" ng-click="removeTask(task)"><i class="glyphicon glyphicon-remove"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                        <div class="row">
+                          <div class="col-sm-8 col-sm-offset-2">
+                        		<hr>
+                        	</div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col-sm-4 col-sm-offset-2">
+
+                            <button class="btn btn-lg btn-danger" id="clear-completed" ng-click="clearAllFinishedTasks()" ng-disabled="tasks.length - remaining <=0">Clear all completed tasks ({{tasks.length - remaining}}) <i class="fa fa-check"></i></button>
+
+                          </div>
+                          <div class="col-sm-4 text-right">
+
+                          </div>
+                        </div>
+
+              	      <div class="row">
+                          <div class="col-sm-8 col-sm-offset-2">
+                        		<hr>
+                        	</div>
+                        </div>
+
+              	</div>
+            </div><!--End of angular app -->
+       </body>
+
+       <!-- Libraries Required -->
+       <script src="libs/js/jquery-3.2.1.min.js"></script>
+       <script src="libs/js/tether.min.js"></script>
+       <script src="libs/js/bootstrap.min.js"></script>
+       <script src="libs/js/angular.min.js"></script>
+       <script src="libs/js/angular-ui-notification.min.js"></script>
+       <!-- Main App Files -->
+        <script src="main-app/app.js"></script>
+        <script src="main-app/directives/directives.js"></script>
+        <script src="main-app/services/services.js"></script>
+        <script src="main-app/controllers/controller.js"></script>
+</html>

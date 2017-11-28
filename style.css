@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+body {
+    font-family: 'Ubuntu', sans-serif;
+    background-color:#eeeeee;
+}
+.top_title{
+    padding-bottom: 3%;
+}
+.spacer{
+    padding-top: 1%;
+}
+.selected {
+    border:1px solid #ddd;
+}
+input {
+    border-width:0px;
+    border:none;
+}
